@@ -1,0 +1,12 @@
+Stitch project: 13180754862116715896  "Unity WebGL FPS - Loadout & Progression"
+Design system: assets/c4ca8533c8634dbab8f22c8372b52e7d  "Neo-Tactical Protocol"
+
+Screens (DESKTOP):
+- 01-loadout      aeefdc786c574dac902307c0a1811551  FPS Loadout - Main View
+- 02-store        32310454dc6d4ffbbef14f38f33e1350  Cosmetic Store - Main View
+- 03-battlepass   4311285002474ad7b91d4caee25fb876  Season 4 Battle Pass - Progression HUD
+- 04-playmenu     e25e226e40944b1c94034168caf80871  BREACHPOINT | Play Menu
+
+Palette: surface #0E1116, panel #1A1E26, cyan #27E1FF, orange #FF6A2C, text #E1E2E9
+Fonts: Orbitron (display), Rajdhani (headings), JetBrains Mono (labels/stats), Inter (body)
+Motifs: chamfered clip-path cards, neon edge glow, scanline overlay, stat bars

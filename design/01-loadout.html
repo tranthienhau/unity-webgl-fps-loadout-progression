@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TACTICAL_HUD_V2.0 | LOADOUT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;family=Inter:wght@400;500&amp;family=Orbitron:wght@400;700&amp;family=Rajdhani:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --primary-accent: #27E1FF;
+            --secondary-accent: #FF6A2C;
+            --panel-bg: #1A1E26;
+            --surface-bg: #0E1116;
+        }
+        body {
+            background-color: var(--surface-bg);
+            background-image:
+                linear-gradient(45deg, rgba(39, 225, 255, 0.02) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(39, 225, 255, 0.02) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(39, 225, 255, 0.02) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(39, 225, 255, 0.02) 75%);
+            background-size: 40px 40px;
+            overflow: hidden;
+            color: #e1e2e9;
+        }
+        .chamfer-card {
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            background: var(--panel-bg);
+            border: 1px solid rgba(133, 147, 151, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chamfer-card:hover { border-color: var(--primary-accent); box-shadow: 0 0 15px rgba(39, 225, 255, 0.15); }
+        .primary-btn { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); background: var(--primary-accent); color: #000; font-weight: 700; text-transform: uppercase; transition: all 0.2s; }
+        .primary-btn:hover { filter: brightness(1.1); box-shadow: 0 0 20px rgba(39, 225, 255, 0.4); transform: translateY(-1px); }
+        .outline-btn { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); border: 1px solid var(--primary-accent); color: var(--primary-accent); text-transform: uppercase; transition: all 0.2s; }
+        .outline-btn:hover { background: rgba(39, 225, 255, 0.1); }
+        .stat-bar-bg { background: rgba(255, 255, 255, 0.05); height: 4px; width: 100%; }
+        .stat-bar-fill { background: var(--primary-accent); height: 100%; box-shadow: 0 0 8px var(--primary-accent); }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 51%); background-size: 100% 4px; pointer-events: none; z-index: 50; opacity: 0.2; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: { extend: {
+              "colors": {
+                      "surface": "#111319", "surface-container-high": "#272a30", "surface-container-lowest": "#0b0e13",
+                      "primary-container": "#27e1ff", "on-primary-container": "#00606f", "on-background": "#e1e2e9",
+                      "surface-container": "#1d2025", "background": "#111319", "surface-container-highest": "#32353a",
+                      "outline": "#859397", "surface-container-low": "#191c21", "on-surface": "#e1e2e9",
+                      "secondary": "#ffb59b", "surface-variant": "#32353a", "on-surface-variant": "#bac9cd",
+                      "primary": "#bff3ff", "surface-bright": "#36393f", "tertiary": "#e2eafb", "outline-variant": "#3b494c"
+              },
+              "fontFamily": { "label-caps": ["JetBrains Mono"], "headline-sm": ["Space Grotesk"], "display-md": ["Space Grotesk"], "body-lg": ["Inter"], "display-lg": ["Space Grotesk"], "body-md": ["Inter"], "stat-lg": ["JetBrains Mono"] }
+          } }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface overflow-hidden">
+<div class="scanline"></div>
+<aside class="flex flex-col h-screen py-16 w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-low z-40">
+<div class="px-6 mb-12">
+<span class="font-display-md text-3xl font-bold text-primary tracking-tighter font-orbitron">PHANTOM</span>
+<div class="text-[10px] text-outline font-label-caps mt-1">SQUADRON_OS_V4</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex flex-row items-center gap-4 text-on-surface-variant font-medium px-6 py-4" href="#"><span class="material-symbols-outlined">sports_esports</span><span class="font-label-caps">PLAY</span></a>
+<a class="flex flex-row items-center gap-4 text-primary font-bold bg-primary/10 border-r-4 border-primary px-6 py-4" href="#"><span class="material-symbols-outlined">inventory_2</span><span class="font-label-caps">LOADOUT</span></a>
+<a class="flex flex-row items-center gap-4 text-on-surface-variant font-medium px-6 py-4" href="#"><span class="material-symbols-outlined">military_tech</span><span class="font-label-caps">ARMORY</span></a>
+<a class="flex flex-row items-center gap-4 text-on-surface-variant font-medium px-6 py-4" href="#"><span class="material-symbols-outlined">shopping_cart</span><span class="font-label-caps">STORE</span></a>
+<a class="flex flex-row items-center gap-4 text-on-surface-variant font-medium px-6 py-4" href="#"><span class="material-symbols-outlined">workspace_premium</span><span class="font-label-caps">BATTLE PASS</span></a>
+</nav>
+<div class="mt-auto px-6 space-y-4">
+<button class="w-full primary-btn py-3 text-center tracking-widest font-rajdhani text-lg">DEPLOY</button>
+</div>
+</aside>
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant/30 flex justify-between items-center px-16 z-30">
+<span class="font-label-caps text-xs font-black tracking-tighter text-on-surface">TACTICAL_HUD_V2.0</span>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">monetization_on</span><span class="font-stat-lg text-sm">25,400</span></div>
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">savings</span><span class="font-stat-lg text-sm">1,250</span></div>
+</div>
+</header>
+<main class="ml-64 pt-20 h-screen p-16 grid grid-cols-12 gap-4 relative">
+<div class="col-span-8 flex flex-col gap-6">
+<div class="relative w-full h-[55vh] flex items-center justify-center chamfer-card">
+<div class="absolute top-4 left-4 border-l-2 border-primary pl-4 py-1">
+<h1 class="font-orbitron text-4xl font-bold tracking-tighter text-primary">AR-X "PHANTOM"</h1>
+<p class="font-rajdhani text-on-surface-variant tracking-[0.2em]">EXPERIMENTAL ASSAULT RIFLE // CALIBER .300 BLK</p>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-size:160px;opacity:0.5;">precision_manufacturing</span>
+</div>
+<div class="grid grid-cols-5 gap-4">
+<div class="chamfer-card p-4 border-primary"><div class="flex justify-between items-start mb-2"><span class="font-label-caps text-[9px] text-outline">PRIMARY</span><span class="text-[9px] font-bold text-secondary px-1 bg-secondary/10">LEGENDARY</span></div><div class="h-16 flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-primary">precision_manufacturing</span></div><div class="font-orbitron text-xs text-center text-primary">AR-X PHANTOM</div></div>
+<div class="chamfer-card p-4 opacity-70"><div class="font-label-caps text-[9px] text-outline mb-2">SECONDARY</div><div class="h-16 flex items-center justify-center"><span class="material-symbols-outlined text-4xl opacity-30">colorize</span></div><div class="font-orbitron text-xs text-center">P9-MODULAR</div></div>
+<div class="chamfer-card p-4 opacity-70"><div class="font-label-caps text-[9px] text-outline mb-2">MELEE</div><div class="h-16 flex items-center justify-center"><span class="material-symbols-outlined text-4xl opacity-30">content_cut</span></div><div class="font-orbitron text-xs text-center">TACTICAL BLADE</div></div>
+<div class="chamfer-card p-4 opacity-70"><div class="font-label-caps text-[9px] text-outline mb-2">TACTICAL</div><div class="h-16 flex items-center justify-center"><span class="material-symbols-outlined text-4xl opacity-30">radar</span></div><div class="font-orbitron text-xs text-center">SENS_GRENADE</div></div>
+<div class="chamfer-card p-4 opacity-70"><div class="font-label-caps text-[9px] text-outline mb-2">LETHAL</div><div class="h-16 flex items-center justify-center"><span class="material-symbols-outlined text-4xl opacity-30">brightness_7</span></div><div class="font-orbitron text-xs text-center">M67_FRAG</div></div>
+</div>
+</div>
+<div class="col-span-4 flex flex-col gap-6">
+<section class="chamfer-card p-6 flex flex-col gap-6">
+<div class="flex justify-between items-end border-b border-outline-variant/50 pb-2"><h2 class="font-orbitron text-xl font-bold text-on-surface">WEAPON SPECS</h2><span class="font-label-caps text-[10px] text-outline">v2.0.4.R</span></div>
+<div class="space-y-4">
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">DAMAGE</span><span class="font-label-caps text-primary">78/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 78%;"></div></div></div>
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">FIRE RATE</span><span class="font-label-caps text-primary">85/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 85%;"></div></div></div>
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">RANGE</span><span class="font-label-caps text-primary">62/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 62%;"></div></div></div>
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">ACCURACY</span><span class="font-label-caps text-primary">91/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 91%;"></div></div></div>
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">MOBILITY</span><span class="font-label-caps text-primary">54/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 54%;"></div></div></div>
+<div class="space-y-1"><div class="flex justify-between font-rajdhani text-sm"><span class="text-on-surface-variant">CONTROL</span><span class="font-label-caps text-primary">70/100</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 70%;"></div></div></div>
+</div>
+</section>
+<section class="chamfer-card p-6 flex flex-col gap-4">
+<h3 class="font-orbitron text-sm font-bold tracking-wider text-outline mb-2">MODIFICATIONS [4/5]</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container p-3 border border-outline-variant/30"><div class="flex justify-between items-center"><span class="font-label-caps text-[9px] text-outline">OPTIC</span><span class="text-[8px] bg-primary/20 text-primary px-1 font-bold">EQUIPPED</span></div><div class="font-rajdhani text-sm font-bold">REDSIGHT X2</div></div>
+<div class="bg-surface-container p-3 border border-outline-variant/30"><div class="flex justify-between items-center"><span class="font-label-caps text-[9px] text-outline">BARREL</span><span class="text-[8px] bg-primary/20 text-primary px-1 font-bold">EQUIPPED</span></div><div class="font-rajdhani text-sm font-bold">SILENCED_MOD</div></div>
+<div class="bg-surface-container p-3 border border-outline-variant/30"><div class="flex justify-between items-center"><span class="font-label-caps text-[9px] text-outline">MAGAZINE</span><span class="text-[8px] bg-primary/20 text-primary px-1 font-bold">EQUIPPED</span></div><div class="font-rajdhani text-sm font-bold">45R_EXTENDED</div></div>
+<div class="bg-surface-container p-3 border border-outline-variant/30"><div class="flex justify-between items-center"><span class="font-label-caps text-[9px] text-outline">GRIP</span><span class="text-[8px] bg-primary/20 text-primary px-1 font-bold">EQUIPPED</span></div><div class="font-rajdhani text-sm font-bold">TACTICAL_FORE</div></div>
+</div>
+</section>
+<div class="mt-auto flex flex-col gap-3">
+<button class="outline-btn w-full py-4 font-rajdhani text-xl tracking-widest">CUSTOMIZE</button>
+<button class="primary-btn w-full py-5 font-orbitron text-2xl tracking-tighter">EQUIP LOADOUT</button>
+</div>
+</div>
+</main>
+</body></html>
