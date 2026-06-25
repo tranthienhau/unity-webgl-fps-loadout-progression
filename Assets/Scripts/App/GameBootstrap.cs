@@ -50,6 +50,8 @@ namespace Breachpoint.App
             }
 
             var app = canvasGo.AddComponent<AppController>();
+            app.MenuCanvas = canvasGo;
+            app.UICamera = cam;
             app.Build(canvasRect);
             return app;
         }

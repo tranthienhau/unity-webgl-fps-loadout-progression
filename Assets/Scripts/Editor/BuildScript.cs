@@ -32,7 +32,9 @@ namespace Breachpoint.EditorTools
             PlayerSettings.productName = "BREACHPOINT";
             PlayerSettings.companyName = "Phantom Studios";
             PlayerSettings.runInBackground = true;
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+            // Disabled compression serves raw files on any static host (e.g. Vercel) with no
+            // Content-Encoding header config. Switch to Gzip/Brotli when the host can set headers.
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
             PlayerSettings.WebGL.template = "APPLICATION:Default";
 
             var opts = new BuildPlayerOptions

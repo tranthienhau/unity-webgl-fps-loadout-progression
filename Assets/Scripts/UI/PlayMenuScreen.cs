@@ -52,7 +52,7 @@ namespace Breachpoint.UI
             ScreenUtil.Thumb(slots.transform, Theme.TextDim, "+", 40);
 
             // Find match
-            var find = UIFactory.Button(side, "FIND MATCH", Theme.Primary, Color.black, Theme.Display, 24, () => { });
+            var find = UIFactory.Button(side, "FIND MATCH", Theme.Primary, Color.black, Theme.Display, 24, () => app.StartMatch(_selected));
             UIFactory.SetHeight(find.gameObject, 72);
         }
 

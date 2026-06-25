@@ -66,6 +66,25 @@ namespace Breachpoint.EditorTools
                 frame++;
             }
 
+            // Gameplay arena shot (rendered through the player camera).
+            app.StartMatch(MockDatabase.Modes[0]);
+            var pcam = Camera.main;
+            if (pcam != null)
+            {
+                var pcamGo = GameObject.Find("PlayerCamera");
+                if (pcamGo != null) pcamGo.transform.localRotation = Quaternion.Euler(6, 18, 0);
+                pcam.targetTexture = rt;
+                pcam.pixelRect = new Rect(0, 0, W, H);
+                var hudGo = GameObject.Find("HUD");
+                var hud = hudGo != null ? (RectTransform)hudGo.transform : canvasRect;
+                RenderToFile(pcam, rt, hud, Path.Combine(framesDir, $"frame_{frame:D2}.png"));
+                File.Copy(Path.Combine(framesDir, $"frame_{frame:D2}.png"), Path.Combine(outDir, "07-gameplay.png"), true);
+                Debug.Log("[Capture] Gameplay arena -> 07-gameplay");
+                pcam.targetTexture = null;
+                frame++;
+            }
+            app.EndMatch();
+
             cam.targetTexture = null;
             rt.Release();
             Debug.Log($"[Capture] wrote {frame} frames + named screenshots to {outDir}");

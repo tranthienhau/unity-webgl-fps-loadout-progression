@@ -18,9 +18,22 @@ so it is data-driven, demoable in a browser, and easy to wire to a real backend.
 | ![Weapon Detail](screenshots/04-weapon-detail.png) | **Customize** - per-weapon **skin selector** with rarity tiers, equip owned skins, buy locked skins with premium currency, live stat readout. |
 | ![Store](screenshots/05-store.png) | **Cosmetic Store** - featured legendary bundle with countdown, category tabs, 3x3 grid of weapon skins / operators / charms / sprays with rarity color bars and gem pricing. |
 | ![Battle Pass](screenshots/06-battlepass.png) | **Battle Pass** - Season 4 tier badge, XP-to-next-tier bar, parallel **Free + Premium reward tracks** (claimed / current / locked nodes), Premium upgrade, daily/weekly **challenges** with progress. |
+| ![Gameplay](screenshots/07-gameplay.png) | **Playable arena** - Find Match drops into a first-person arena: WASD + mouse-look (pointer lock), **hitscan shooting driven by the equipped weapon's stats** (RPM, damage, range, spread, mag size), recoil, reload, AI bot targets, live HUD (crosshair / health / ammo / score). |
 
 Every screen is interactive: select a mode, equip a skin (currency deducts), buy a store item, unlock the
 premium pass - all mutate a single in-memory player profile and the UI re-renders.
+
+**Find Match** launches a playable first-person arena (`GameplayController`): a `CharacterController`-based
+FPS controller, hitscan firing whose RPM / damage / range / spread / magazine all derive from the
+**equipped weapon's stats**, recoil, reload, and AI bot targets you score against. `ESC` returns to the menu.
+
+### Controls
+
+`WASD` move - `Mouse` aim (click canvas to lock pointer) - `Left click` fire - `R` reload -
+`Shift` sprint - `Space` jump - `Esc` exit to menu.
+
+> **Scope note:** the arena is single-player vs AI bots. True multiplayer **netcode** (movement/shooting
+> sync, server-authoritative state) requires a backend and is out of scope for this client-side slice.
 
 ## Tech
 
@@ -60,7 +73,9 @@ flowchart TD
     Shell --> Store[Cosmetic Store]
     Shell --> Pass[Battle Pass]
 
-    Play -->|Find Match| Match[(Matchmaking - backend)]
+    Play -->|Find Match| Arena[Playable arena: FPS controller, hitscan + bots]
+    Arena -->|uses| Profile
+    Arena -->|Esc| Shell
     Loadout -->|Customize| Detail[Weapon Detail / Skins]
     Armory -->|Inspect| Detail
     Detail -->|Equip owned skin| Profile

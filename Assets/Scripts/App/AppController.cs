@@ -20,6 +20,11 @@ namespace Breachpoint.App
         public Screen Current { get; private set; }
         public string SelectedWeaponId = "ar_phantom";   // context for WeaponDetail
 
+        // Set by GameBootstrap so a match can hide/restore the menu.
+        public GameObject MenuCanvas;
+        public Camera UICamera;
+        GameplayController _match;
+
         public void Build(RectTransform canvas)
         {
             // Background
@@ -175,6 +180,24 @@ namespace Breachpoint.App
                 case Screen.BattlePass: BattlePassScreen.Build(_screenArea, this); break;
                 case Screen.WeaponDetail: WeaponDetailScreen.Build(_screenArea, this); break;
             }
+        }
+
+        // Launch the playable arena with the selected mode + equipped weapon.
+        public void StartMatch(GameMode mode)
+        {
+            if (_match != null) return;
+            if (MenuCanvas != null) MenuCanvas.SetActive(false);
+            if (UICamera != null) UICamera.gameObject.SetActive(false);
+            var go = new GameObject("Gameplay");
+            _match = go.AddComponent<GameplayController>();
+            _match.Begin(this, mode, MockDatabase.EquippedPrimary);
+        }
+
+        public void EndMatch()
+        {
+            if (_match != null) { Destroy(_match.gameObject); _match = null; }
+            if (UICamera != null) UICamera.gameObject.SetActive(true);
+            if (MenuCanvas != null) MenuCanvas.SetActive(true);
         }
 
         public void RefreshCurrencies()
