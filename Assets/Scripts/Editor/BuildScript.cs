@@ -36,6 +36,9 @@ namespace Breachpoint.EditorTools
             // Content-Encoding header config. Switch to Gzip/Brotli when the host can set headers.
             PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
             PlayerSettings.WebGL.template = "APPLICATION:Default";
+            // Don't cache the data/wasm in the browser's IndexedDB - avoids serving a stale build
+            // after a redeploy (a plain hard-refresh does not clear that cache).
+            PlayerSettings.WebGL.dataCaching = false;
 
             var opts = new BuildPlayerOptions
             {
