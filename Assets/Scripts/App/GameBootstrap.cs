@@ -25,16 +25,23 @@ namespace Breachpoint.App
             cam = camGo.AddComponent<Camera>();
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = Theme.Surface;
-            cam.orthographic = true;
+            // Perspective ScreenSpace-Camera is the reliable combo at runtime; an orthographic
+            // camera renders the canvas only on a forced Render() (worked in capture, black in build).
+            cam.orthographic = false;
+            cam.fieldOfView = 60;
+            cam.nearClipPlane = 0.3f;
+            cam.farClipPlane = 1000;
             cam.cullingMask = ~0;
             cam.transform.position = new Vector3(0, 0, -100);
 
             // Canvas
             var canvasGo = new GameObject("UICanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasGo.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = cam;
-            canvas.planeDistance = 100;
+            // ScreenSpace-Overlay renders straight to the framebuffer with no camera dependency -
+            // the most reliable UI mode in WebGL. (ScreenSpace-Camera here rendered black in the
+            // build while working under a forced editor Render().) The camera stays only to paint
+            // the dark backdrop and to toggle off cleanly when a match starts.
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = canvasGo.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = Reference;

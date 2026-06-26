@@ -353,11 +353,8 @@ namespace Breachpoint.App
             var go = new GameObject("HUD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             go.transform.SetParent(transform, false);
             var canvas = go.GetComponent<Canvas>();
-            // ScreenSpace-Camera (through the player camera) so the HUD renders in WebGL and is
-            // also captured by the headless screenshot harness.
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = _cam;
-            canvas.planeDistance = 0.5f;
+            // ScreenSpace-Overlay: HUD draws over the 3D arena, camera-independent (reliable in WebGL).
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1600, 900);
